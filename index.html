@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="referrer" content="no-referrer">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Convite | Confirmação de presença</title>
+  <style>
+    * { box-sizing: border-box }
+    body { margin: 0; padding: 24px; background: #f1f3ee; color: #183c32; font: 17px/1.55 system-ui, sans-serif }
+    main { max-width: 610px; margin: clamp(20px, 10vh, 120px) auto; padding: clamp(26px, 6vw, 54px); background: white; border: 1px solid #dbe5dc; border-radius: 16px }
+    h1 { font-size: clamp(32px, 7vw, 50px); line-height: 1.05; margin: 0 0 22px }
+    a { display: inline-block; padding: 15px 22px; border-radius: 8px; color: white; background: #174b37; font-weight: 700; text-decoration: none }
+    a[hidden] { display: none }
+    a:focus-visible { outline: 3px solid #ad7935; outline-offset: 3px }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>Convite</h1>
+    <p id="status" role="status">Abra o link individual enviado por e-mail para responder ao convite.</p>
+    <a id="acao" rel="noreferrer" hidden>Responder ao convite</a>
+  </main>
+  <script>
+    const formulario = '';
+    const token = new URLSearchParams(window.location.hash.slice(1)).get('t') || '';
+    const status = document.getElementById('status');
+    if (/^[a-f0-9-]{73}$/.test(token)) {
+      if (/^https:\/\/script\.google\.com\/(?:a\/macros\/[^/]+|macros)\/s\/[\w-]+\/exec$/.test(formulario)) {
+        const acao = document.getElementById('acao');
+        acao.href = formulario + '?t=' + encodeURIComponent(token);
+        acao.hidden = false;
+        status.textContent = 'Veja os detalhes do evento e registre sua resposta.';
+      } else {
+        status.textContent = 'A página de confirmação ainda está sendo configurada.';
+      }
+    }
+  </script>
+</body>
+</html>
